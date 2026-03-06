@@ -662,15 +662,15 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/fireba
 import { getDatabase, ref, set, get, update, onValue, onDisconnect, remove }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-// ── Firebase Config ──
+// ── Firebase Config — MetaEN Platform / Jinro Game ──
 const app = initializeApp({
-  apiKey: "AIzaSyDmDXcu0aPIfGRucLDdxHFtCmQgfEINFCo",
-  authDomain: "sensei-ai-mvp.firebaseapp.com",
-  databaseURL: "https://sensei-ai-mvp-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "sensei-ai-mvp",
-  storageBucket: "sensei-ai-mvp.firebasestorage.app",
-  messagingSenderId: "807416062770",
-  appId: "1:807416062770:web:db85d9ad8813c505006d2b"
+  apiKey: "AIzaSyCbi2ipmNxXSAvuq6TPzcJB4JzXR34ldTQ",
+  authDomain: "metaen-platform.firebaseapp.com",
+  databaseURL: "https://metaen-platform-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "metaen-platform",
+  storageBucket: "metaen-platform.firebasestorage.app",
+  messagingSenderId: "145714300425",
+  appId: "1:145714300425:web:a73f438637f315f6c91ad8"
 });
 const db = getDatabase(app);
 
@@ -741,13 +741,13 @@ async function init() {
 
   // Load saved profile name first
   try {
-    const profileSnap = await get(ref(db, `player_profiles/${myUid}`));
+    const profileSnap = await get(ref(db, `apps/jinro/player_profiles/${myUid}`));
     if (profileSnap.val() && profileSnap.val().name) {
       myName = profileSnap.val().name;
     }
   } catch(e) { /* ignore */ }
 
-  sessionRef = ref(db, `game_sessions/${tableId}`);
+  sessionRef = ref(db, `apps/jinro/game_sessions/${tableId}`);
 
   // Try to join the table
   const snapshot = await get(sessionRef);
@@ -798,9 +798,9 @@ async function init() {
   }
 
   // Setup disconnect cleanup
-  onDisconnect(ref(db, `game_sessions/${tableId}/${mySlot}_uid`)).remove();
-  onDisconnect(ref(db, `game_sessions/${tableId}/${mySlot}_name`)).remove();
-  onDisconnect(ref(db, `game_sessions/${tableId}/${mySlot}_ready`)).remove();
+  onDisconnect(ref(db, `apps/jinro/game_sessions/${tableId}/${mySlot}_uid`)).remove();
+  onDisconnect(ref(db, `apps/jinro/game_sessions/${tableId}/${mySlot}_name`)).remove();
+  onDisconnect(ref(db, `apps/jinro/game_sessions/${tableId}/${mySlot}_ready`)).remove();
 
   // Update lobby UI
   document.getElementById('lobby-p1-name').textContent = myName;
@@ -1334,7 +1334,7 @@ function showFinalResultUI() {
 
 async function savePlayerProfile() {
   try {
-    const profileRef = ref(db, `player_profiles/${myUid}`);
+    const profileRef = ref(db, `apps/jinro/player_profiles/${myUid}`);
     const snap = await get(profileRef);
     const existing = snap.val() || { name: myName, totalScore: 0, gamesPlayed: 0, wins: 0 };
 
@@ -1388,7 +1388,7 @@ window.loadLeaderboard = async function() {
   container.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-dim)">ランキングを読み込み中...</div>';
 
   try {
-    const snap = await get(ref(db, 'player_profiles'));
+    const snap = await get(ref(db, 'apps/jinro/player_profiles'));
     const data = snap.val();
 
     if (!data) {

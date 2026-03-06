@@ -1,5 +1,12 @@
 {
   "projects": {
-    "default": "sensei-ai-mvp"
+    "default": "metaen-platform"
+  },
+  "targets": {
+    "metaen-platform": {
+      "hosting": {
+        "jinro": ["jinro-game-metaen-platform"]
+      }
+    }
   }
 }

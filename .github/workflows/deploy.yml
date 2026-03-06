@@ -1,4 +1,4 @@
-name: Deploy to Firebase Hosting
+name: Deploy to Firebase Hosting — Jinro Game
 
 on:
   push:
@@ -16,6 +16,7 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SENSEI_AI_MVP }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_METAEN_PLATFORM }}
           channelId: live
-          projectId: sensei-ai-mvp
+          target: jinro
+          projectId: metaen-platform
